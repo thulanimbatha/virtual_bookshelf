@@ -51,10 +51,10 @@ def edit_rating():
     #     return redirect(url_for('home'))
     # # return to edit.html
 
-    # get the title and current rating from Index.html
-    title = request.args.get('title')
-    rating = request.args.get('current_rating')
-    return render_template('edit.html', title=title, current_rating=rating)
+    # get the current book id from Index.html, pass over Book object
+    book_id = request.args.get('id')
+    chosen_book = Book.query.get(book_id)
+    return render_template('edit.html', book=chosen_book)
 
 if __name__ == "__main__":
     app.run(debug=True)
