@@ -43,17 +43,19 @@ def add():
 # edit page for editing book ratings
 @app.route('/edit', methods=['GET', 'POST'])
 def edit_rating():
-    # if request.method == 'POST':
-    #     # update record by query
-    #     update_book = Book.query.filter_by(title=title).first()
-    #     update_book.rating = request.form['rating']
-    #     db.session.commit()
-    #     return redirect(url_for('home'))
-    # # return to edit.html
+
+    if request.method == 'POST':
+        # update record 
+        book_id = request.form['id']
+        update_book = Book.query.get(book_id)
+        update_book.rating = request.form['rating']
+        db.session.commit()
+        return redirect(url_for('home'))
 
     # get the current book id from Index.html, pass over Book object
     book_id = request.args.get('id')
     chosen_book = Book.query.get(book_id)
+    # always try to pass object, rather than attributes
     return render_template('edit.html', book=chosen_book)
 
 if __name__ == "__main__":

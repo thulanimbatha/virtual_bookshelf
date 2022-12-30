@@ -11,6 +11,8 @@
     <form action="{{ url_for('edit_rating') }} " method="POST">   
         <p>Book Name: {{ book.title }}</p>
         <p>Current Rating: {{ book.rating }}</p>
+            <!-- This is a valuable way to access the object id property -->
+            <input hidden="hidden" name="id" value="{{ book.id }}">
         <input name="rating" type="text" placeholder="New Rating">
         <button type="submit">Change Rating</button>
     </form>
