@@ -34,6 +34,7 @@ def add():
             author=request.form["author"],
             rating=request.form["rating"]
             )
+        # add Book object to the database
         db.session.add(new_book)
         db.session.commit()
         return redirect(url_for('home'))
@@ -57,6 +58,15 @@ def edit_rating():
     chosen_book = Book.query.get(book_id)
     # always try to pass object, rather than attributes
     return render_template('edit.html', book=chosen_book)
+
+@app.route('/delete')
+def delete():
+    # delete book
+    book_id = request.args.get('id')    # get the book id
+    chosen_book = Book.query.get(book_id)   # get the book using the book id
+    db.session.delete(chosen_book)      # delete the Book
+    db.session.commit()
+    return redirect(url_for('home'))    # redirect to the home page
 
 if __name__ == "__main__":
     app.run(debug=True)
