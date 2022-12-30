@@ -8,5 +8,12 @@
 </head>
 <body>
     <h1>Welcome to the EDIT RATING page</h1>
+    <form action="{{ url_for('edit_rating') }} " method="POST">   
+        <p>Book Name: {{ title }}</p>
+        <p>Current Rating: {{ current_rating }}</p>
+        <input name="rating" type="text" placeholder="New Rating">
+        <button type="submit">Change Rating</button>
+    </form>
+    
 </body>
 </html>

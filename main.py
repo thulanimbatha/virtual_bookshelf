@@ -17,12 +17,14 @@ class Book(db.Model):
 app.app_context().push()
 db.create_all()
 
+# home page
 @app.route('/')
 def home():
     # CRUD - READ all books
     all_books = db.session.query(Book).all()
     return render_template('index.html', books=all_books)    
 
+# page to add books
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
@@ -38,9 +40,21 @@ def add():
 
     return render_template('add.html')
 
+# edit page for editing book ratings
 @app.route('/edit', methods=['GET', 'POST'])
 def edit_rating():
-    return render_template('edit.html')
+    # if request.method == 'POST':
+    #     # update record by query
+    #     update_book = Book.query.filter_by(title=title).first()
+    #     update_book.rating = request.form['rating']
+    #     db.session.commit()
+    #     return redirect(url_for('home'))
+    # # return to edit.html
+
+    # get the title and current rating from Index.html
+    title = request.args.get('title')
+    rating = request.args.get('current_rating')
+    return render_template('edit.html', title=title, current_rating=rating)
 
 if __name__ == "__main__":
     app.run(debug=True)
